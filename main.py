@@ -15,7 +15,7 @@ def test_connection(db_client):
         bool: True if the connection is successful, False otherwise.
     """
     try:
-        db_client.admin.command('ping')
+        db_client.admin.command("ping")
         print("Successfully connected to MongoDB!")
     except Exception as e:
         print("Could not connect to MongoDB!")
@@ -23,17 +23,19 @@ def test_connection(db_client):
         return False
     return True
 
+
 def connect():
     """
     Connects to a MongoDB database using the provided credentials in the .env file.
     Returns a MongoClient instance connected to the specified database.
     """
-    config = dotenv_values('.env')
+    config = dotenv_values(".env")
     uri = f"mongodb+srv://{config['MDB_USER']}:{config['MDB_PASSWORD']}@mdscswh3.vppmp7a.mongodb.net/?retryWrites=true&w=majority&appName=mdscswh3:"
-    client = MongoClient(uri, server_api=ServerApi('1'))
+    client = MongoClient(uri, server_api=ServerApi("1"))
     test_connection(client)
 
     return client.mdscswh3
+
 
 def add(db, name, age, features):
     """
@@ -48,7 +50,8 @@ def add(db, name, age, features):
     Returns:
         The result of the insertion operation.
     """
-    return db.cats.insert_one({'name': name, 'age': age, 'features': features})
+    return db.cats.insert_one({"name": name, "age": age, "features": features})
+
 
 def read(db):
     """
@@ -61,6 +64,7 @@ def read(db):
         list: A list of cat records.
     """
     return list(db.cats.find({}))
+
 
 def update(db, id, name, age, features):
     """
@@ -76,7 +80,11 @@ def update(db, id, name, age, features):
     Returns:
         The result of the update operation.
     """
-    return db.cats.update_one({'_id': ObjectId(id)}, {'$set': {'name': name, 'age': age, 'features': features}})
+    return db.cats.update_one(
+        {"_id": ObjectId(id)},
+        {"$set": {"name": name, "age": age, "features": features}},
+    )
+
 
 def delete(db, id):
     """
@@ -89,7 +97,8 @@ def delete(db, id):
     Returns:
         The result of the deletion operation.
     """
-    return db.cats.delete_one({'_id': ObjectId(id)})
+    return db.cats.delete_one({"_id": ObjectId(id)})
+
 
 def print_all_cats(cats):
     """
@@ -102,15 +111,16 @@ def print_all_cats(cats):
     for cat in cats:
         print(f"{cat['_id']}: {cat['name']}, {cat['age']}, {cat['features']}")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     db = connect()
-    simba_id = add(db, 'Simba', 5, ['white', 'kind', 'cute']).inserted_id
+    simba_id = add(db, "Simba", 5, ["white", "kind", "cute"]).inserted_id
     print(f"Added cat: {simba_id}")
-    mint_id = add(db, 'Mint', 3, ['black', 'lazy']).inserted_id
+    mint_id = add(db, "Mint", 3, ["black", "lazy"]).inserted_id
     print(f"Added cat: {mint_id}")
     cats = read(db)
     print_all_cats(cats)
-    number = update(db, mint_id, 'Mint', 4, ['black', 'lazy']).modified_count
+    number = update(db, mint_id, "Mint", 4, ["black", "lazy"]).modified_count
     print(f"Updated cats: {number}")
     cats = read(db)
     print_all_cats(cats)
