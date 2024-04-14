@@ -69,3 +69,39 @@ Create a database for a task management system using PostgreSQL. The database sh
 
 ## Task 2
 
+Implement basic CRUD (Create, Read, Update, Delete) operations in MongoDB using PyMongo library.
+
+### Step-by-step Instructions
+ 1. Create a database according to the requirements.
+
+    **Requirements for database structure**
+
+    Each document in your database should have the following structure:
+
+    ```json
+    {
+        "_id": ObjectId("60d24b783733b1ae668d4a77"),
+        "name": "barsik",
+        "age": 3,
+        "features": ["ходить в капці", "дає себе гладити", "рудий"]
+    }
+    ```
+
+    The document represents information about a cat, its name `name`, age `age` and characteristics `features`.
+
+ 2. Implement a Python script `main.py` to perform the following tasks.
+
+    **Tasks to be done:**
+    - **Reading** (`read`)
+        - Implement a function to print all records from the collection.
+        - Implement a function that allows the user to enter a cat's name and print information about that cat.
+    - **Updating** (`update`)
+        - Create a function that allows the user to update the age of a cat by its name.
+        - Create a function that allows the user to add a new feature to a cat's list of `features` by its name.
+    - **Deleting** (`delete`)
+        - Implement a function to delete a record from the collection by its name of the cat.
+        - Implement a function to delete all records from the collection.
+
+### Solution
+
+All required functions are implemented in `main.py`.
